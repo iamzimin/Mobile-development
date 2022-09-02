@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    android:orientation="vertical">
 
     <TableLayout
         android:layout_height="wrap_content"
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:id="@+id/tableLayout1">
 
         <TextView
@@ -26,7 +22,7 @@
 
             <EditText
                 android:id="@+id/text"
-                android:layout_width="333dp"
+                android:layout_width="597dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
@@ -34,17 +30,16 @@
                 android:id="@+id/plus"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="@string/plus"
+                android:text="@string/add"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1" />
         </TableRow>
 
     </TableLayout>
 
-
     <TableLayout
-        android:layout_height="wrap_content"
-        android:layout_width="410dp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
         android:id="@+id/tableLayout2">
 
         <TableRow
@@ -57,28 +52,32 @@
                 android:layout_width="197dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
-                android:text="@string/Button1"/>
+                android:text="@string/Button1"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="197dp"
                 android:layout_height="wrap_content"
-                android:text="@string/Button2"/>
+                android:text="@string/Button2"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="197dp"
+                android:layout_height="wrap_content"
+                android:text="@string/Button3"
+                android:layout_weight="1" />
         </TableRow>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/List"
+            android:textSize="50sp" />
+
     </TableLayout>
 
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="410dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:text="@string/Button3" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="410dp"
-        android:layout_height="529dp"
-        android:text="@string/List"
-        android:textSize="50sp" />
 </LinearLayout>

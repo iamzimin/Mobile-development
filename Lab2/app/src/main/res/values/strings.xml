@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Lab2</string>
-    <string name="name_element"> Имя элемента </string>
+    <string name="name_element"> Имя элемента</string>
+    <string name="plus">+</string>
+    <string name="add">Добавить</string>
+    <string name="Button1">Кнопка 1</string>
+    <string name="Button2">Кнопка 2 </string>
+    <string name="Button3">Кнопка 3 </string>
+    <string name="List">Список</string>
 </resources>
