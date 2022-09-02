@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Lab1</string>
+    <string name="number1"> Первое число </string>
+    <string name="number2"> Второе число </string>
+    <string name="sum"> Сложить </string>
+    <string name="min"> Вычесть </string>
+    <string name="mul"> Умножить </string>
+    <string name="dev"> Разделить </string>
+    <string name="result"> Результат: %s </string>
+    <string name="back"> Назад </string>
+</resources>
