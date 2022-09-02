@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <TableLayout
+        android:layout_height="wrap_content"
+        android:layout_width="410dp"
+        android:id="@+id/tableLayout1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name_element"
+            android:textSize="40sp" />
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="333dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/plus"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="+"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1" />
+        </TableRow>
+
+    </TableLayout>
+
+
+    <TableLayout
+        android:layout_height="wrap_content"
+        android:layout_width="410dp"
+        android:id="@+id/tableLayout2">
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="197dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="Кнопка 1"></Button>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="197dp"
+                android:layout_height="wrap_content"
+                android:text="Кнопка 2"></Button>
+        </TableRow>
+    </TableLayout>
+
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="410dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:text="Кнопка 3"></Button>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="410dp"
+        android:layout_height="529dp"
+        android:text="TextView"
+        android:textSize="50dp" />
+
+
+
+</LinearLayout>
