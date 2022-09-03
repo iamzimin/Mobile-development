@@ -45,10 +45,7 @@ public class DrawView extends View {
             x = getWidth() / 2;
             y = getHeight() / 2;
 
-
-            //grid.setColor(Color.BLACK);
-
-        /*int z = (int)(sqrt(sX) + sqrt(sY));
+             /*int z = (int)(sqrt(sX) + sqrt(sY));
             for (int i = 0; i < getHeight(); i+=z) {              // ----
                 canvas.drawLine(0, i, getWidth(), i, grid);
             }
@@ -57,25 +54,21 @@ public class DrawView extends View {
                 canvas.drawLine(i, getHeight(), i, 0, grid);
         }*/
 
-
             coord.setStrokeWidth(5);
 
             canvas.drawLine(0, y, getWidth(), y, coord);
             canvas.drawLine(x, 0, x, getHeight(), coord);
 
-
-            coord.setStrokeWidth(5);
+            float zoom = 100.0f; //уменьшить чтобы отдалить
+            //float scroll = 150.0f;
             path.moveTo(0, y);
 
-            for (int p = 0; p < getWidth(); p++) {
-                float x = (p - getWidth() / 2.0f) / 100.0f;
-                //float y = 1.0f - (float)Math.cos(x);
+            for (int p = fX; p < sX; p+=1) {
+                float x = (p - getWidth() / 2.0f) / zoom; //
                 float y = 1.0f - (float) Math.cos(x);
-                path.lineTo(p, getHeight() / 2f - y * 150.5f);
+                path.lineTo(p, getHeight() / 2f - y * zoom);
             }
 
-            //canvas.drawLine(0, 0, 100, 100, coord);
-            //path.lineTo(100, 100);
             canvas.drawPath(path, coord);
         }
     }
