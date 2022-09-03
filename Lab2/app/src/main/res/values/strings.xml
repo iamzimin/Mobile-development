@@ -3,8 +3,8 @@
     <string name="name_element"> Имя элемента</string>
     <string name="plus">+</string>
     <string name="add">Добавить</string>
-    <string name="Button1">Кнопка 1</string>
-    <string name="Button2">Кнопка 2 </string>
-    <string name="Button3">Кнопка 3 </string>
+    <string name="Button1">Выбрать всё</string>
+    <string name="Button2">Сбросить </string>
+    <string name="Button3">Вывод </string>
     <string name="List">Список</string>
 </resources>
