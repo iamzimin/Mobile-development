@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">№3</string>
+    <string name="firstX">От x:</string>
+    <string name="secondX">До x:</string>
+    <string name="firstY">От y:</string>
+    <string name="secondY">До y:</string>
+    <string name="buttonСonfirm">Ввод</string>
+    <string name="graph">Граф</string>
+</resources>
