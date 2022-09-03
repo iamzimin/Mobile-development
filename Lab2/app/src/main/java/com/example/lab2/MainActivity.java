@@ -62,32 +62,20 @@ public class MainActivity extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
 
-        ArrayList<String> list = new ArrayList<>();
-        list.add("1");
-        list.add("Hello");
-        list.add("Мир");
+
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, list);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, List.getItems());
         listView.setAdapter(adapter);
 
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                list.add(0, editText.getText().toString());
-                adapter.notifyDataSetChanged();
-                editText.setText("");
-
-                SparseBooleanArray checkedItemPositions = listView.getCheckedItemPositions();
-                if (!list.isEmpty()) {
-                    for (int i = listView.getCount() - 1; i >= 0; i--) {
-
-                        if(checkedItemPositions.get(i - 1))
-                            checkedItemPositions.append(i, true);
-                        else
-                            checkedItemPositions.append(i, false);
-
-                    }
+                String add = editText.getText().toString();
+                if (!add.isEmpty()) {
+                    adapter.add(add);
+                    adapter.notifyDataSetChanged();
+                    editText.setText("");
                 }
             }
         });
@@ -138,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 int id = 0;
                 for(int i = 0; i < listView.getCount(); i++) {
                     if(checkedItemPositions.get(i)) {
-                        output[id++] = list.get(i);
+                        output[id++] = List.getItems().get(i);
                     }
                 }
                 String s = String.join(" ", output);
