@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">№2</string>
+    <string name="name_element">Element Name</string>
+    <string name="plus">+</string>
+    <string name="add">Add</string>
+    <string name="Button1">Select All</string>
+    <string name="Button2">Reset</string>
+    <string name="Button3">Output</string>
+    <string name="List">List</string>
+</resources>

@@ -77,6 +77,7 @@
             android:layout_height="wrap_content"
             android:text="@string/List"
             android:textSize="50sp"
+            android:scrollbars="vertical"
             android:choiceMode="multipleChoice" />
 
     </TableLayout>
