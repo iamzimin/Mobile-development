@@ -1,8 +1,5 @@
 package com.example.lab3;
 
-import static java.lang.Math.cos;
-import static java.lang.StrictMath.sqrt;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,7 +9,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 
@@ -22,15 +18,15 @@ public class DrawView extends View {
     int x;
     int y;
     int fX, fY, sX, sY;
-    boolean click, click2, scaling;
+    boolean click, scaling;
     private ScaleGestureDetector scaleGestureDetector;
     Paint coord;
     Path path;
-    private float zoom = 1f;
+    float zoom = 1f;
     float h;
     float w;
     float oldPx, oldPy;
-    float px = 0, py = 0;
+    float pX = 0, pY = 0;
 
     public DrawView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -74,11 +70,11 @@ public class DrawView extends View {
             float zoomY = (h / tempH);
             float zoomX = (w / tempW);
 
-            tempFirstX += px / zoomX;
-            tempSecondX += px / zoomX;
+            tempFirstX += pX / zoomX;
+            tempSecondX += pX / zoomX;
 
-            tempFirstY += py / zoomY;
-            tempSecondY += py / zoomY;
+            tempFirstY += pY / zoomY;
+            tempSecondY += pY / zoomY;
 
             float verticalX = (-tempFirstX / tempW) * w;
             float horizontalY = (1 - (-tempFirstY) / tempH) * h;
@@ -119,7 +115,7 @@ public class DrawView extends View {
             coord.setColor(Color.RED);
             for (int p = 0; p < w; p += 1) {
                 float x = tempFirstX + (tempSecondX - tempFirstX) * ((float) p / w);
-                float y = (float) Math.sin(x) + 1;
+                float y = 1.0f - (float) Math.cos(x);
                 path.lineTo(p, -y * zoomY + tempSecondY * zoomY);
             }
 
@@ -137,9 +133,9 @@ public class DrawView extends View {
         scaleGestureDetector.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_MOVE: {
-                if (scaling == false) {
-                    px -= x - oldPx;
-                    py += y - oldPy;
+                if (!scaling) {
+                    pX -= x - oldPx;
+                    pY += y - oldPy;
 
                     oldPx = x;
                     oldPy = y;
@@ -148,7 +144,7 @@ public class DrawView extends View {
             }
 
             case MotionEvent.ACTION_DOWN: {
-                if (scaling == false) {
+                if (!scaling) {
                     oldPx = x;
                     oldPy = y;
                 }

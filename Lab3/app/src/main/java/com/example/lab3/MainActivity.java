@@ -1,13 +1,7 @@
 package com.example.lab3;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.compose.ui.graphics.Canvas;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -60,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
                     drawView.sY = (int)secondY;
                     drawView.invalidate();
                     drawView.click = true;
+
+                    drawView.oldPx = 0;
+                    drawView.oldPy = 0;
+                    drawView.pX = 0;
+                    drawView.pY = 0;
+                    drawView.zoom = 1.0f;
                 }
                 if (fX.getText().toString().isEmpty())
                 {
