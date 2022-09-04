@@ -36,8 +36,7 @@
                     <EditText
                         android:id="@+id/fX"
                         android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberSigned" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -49,7 +48,7 @@
                         android:id="@+id/sX"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberSigned" />
 
                 </TableRow>
             </LinearLayout>
@@ -75,7 +74,7 @@
                         android:id="@+id/fY"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberSigned" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -87,7 +86,7 @@
                         android:id="@+id/sY"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberSigned" />
                 </TableRow>
             </LinearLayout>
 

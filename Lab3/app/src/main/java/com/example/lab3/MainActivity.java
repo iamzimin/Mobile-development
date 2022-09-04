@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                if (!click) {
+//                    fX.setText("-50");
+//                    sX.setText("50");
+//                    fY.setText("-4");
+//                    sY.setText("4");
+//                }
                 if (!fX.getText().toString().isEmpty() && !fY.getText().toString().isEmpty() &&
                         !sX.getText().toString().isEmpty() && !sY.getText().toString().isEmpty()) {
                     firstX = Float.parseFloat(fX.getText().toString());
@@ -53,6 +60,26 @@ public class MainActivity extends AppCompatActivity {
                     drawView.sY = (int)secondY;
                     drawView.invalidate();
                     drawView.click = true;
+                }
+                if (fX.getText().toString().isEmpty())
+                {
+                    String s = "Введите координату 'От x:'";
+                    Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                }
+                if (sX.getText().toString().isEmpty())
+                {
+                    String s = "Введите координату 'До x:'";
+                    Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                }
+                if (fY.getText().toString().isEmpty())
+                {
+                    String s = "Введите координату 'От y:'";
+                    Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                }
+                if (sY.getText().toString().isEmpty())
+                {
+                    String s = "Введите координату 'До y:'";
+                    Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
                 }
 
             }
