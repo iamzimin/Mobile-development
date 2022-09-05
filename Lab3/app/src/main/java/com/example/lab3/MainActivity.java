@@ -31,17 +31,12 @@ public class MainActivity extends AppCompatActivity {
         fY = findViewById(R.id.fY);
         sX = findViewById(R.id.sX);
         sY = findViewById(R.id.sY);
+
         drawView = findViewById(R.id.graphOutput);
 
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (!click) {
-//                    fX.setText("-50");
-//                    sX.setText("50");
-//                    fY.setText("-4");
-//                    sY.setText("4");
-//                }
                 if (!fX.getText().toString().isEmpty() && !fY.getText().toString().isEmpty() &&
                         !sX.getText().toString().isEmpty() && !sY.getText().toString().isEmpty()) {
                     firstX = Float.parseFloat(fX.getText().toString());
@@ -60,7 +55,16 @@ public class MainActivity extends AppCompatActivity {
                     drawView.pX = 0;
                     drawView.pY = 0;
                     drawView.zoom = 1.0f;
+
+                    drawView.outFX = fX;
+                    drawView.outSX = sX;
+                    drawView.outFY = fY;
+                    drawView.outSY = sY;
+
+                    //float temp = drawView.tempFirstX;
+
                 }
+
                 if (fX.getText().toString().isEmpty())
                 {
                     String s = "Введите координату 'От x:'";
@@ -81,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     String s = "Введите координату 'До y:'";
                     Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
                 }
+
 
             }
         });

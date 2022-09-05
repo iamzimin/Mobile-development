@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -20,19 +21,29 @@ public class DrawView extends View {
     int fX, fY, sX, sY;
     boolean click, scaling;
     private ScaleGestureDetector scaleGestureDetector;
-    Paint coord;
-    Path path;
+    Paint coord, arrowPaint;
+    Path path, arrowPath;
     float zoom = 1f;
     float h;
     float w;
     float oldPx, oldPy;
     float pX = 0, pY = 0;
 
+
+    float tempFirstX = 0;
+    float tempSecondX = 0;
+    float tempFirstY = 0;
+    float tempSecondY = 0;
+
+    public TextView outFX, outSX, outFY, outSY;
+
     public DrawView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         coord = new Paint();
+        arrowPaint = new Paint();
         path = new Path();
+        arrowPath = new Path();
 
 
         coord.setAntiAlias(true);
@@ -58,11 +69,11 @@ public class DrawView extends View {
             float scaleValueX = (width - width / zoom) / 2;
             float scaleValueY = (height - height / zoom) / 2;
 
-            float tempFirstX = fX + scaleValueX;
-            float tempSecondX = sX - scaleValueX;
+            tempFirstX = fX + scaleValueX;
+            tempSecondX = sX - scaleValueX;
 
-            float tempFirstY = fY + scaleValueY;
-            float tempSecondY = sY - scaleValueY;
+            tempFirstY = fY + scaleValueY;
+            tempSecondY = sY - scaleValueY;
 
             float tempH = tempSecondY - tempFirstY;
             float tempW = tempSecondX - tempFirstX;
@@ -101,13 +112,24 @@ public class DrawView extends View {
             coord.setStrokeWidth(5);
             coord.setColor(Color.BLACK);
 
-            /*canvas.drawLine(0, y, getWidth(), y, coord);
-            canvas.drawLine(fX, 0, fX, getHeight(), coord);*/
-
             canvas.drawLine(verticalX, 0, verticalX, h, coord);     // -
             canvas.drawLine(0, horizontalY, w, horizontalY, coord); // |
 
+            //canvas.drawPath((float)(verticalX - 4), 0, (float)(verticalX - 4), (float)h, coord);
+            arrowPaint.setColor(Color.BLACK);
+            arrowPath.reset();
+            arrowPath.moveTo(verticalX, 0);
+            arrowPath.lineTo(verticalX - 20, 20);
+            arrowPath.lineTo(verticalX + 20, 20);
+            arrowPath.lineTo(verticalX, 0);
+            canvas.drawPath(arrowPath, arrowPaint);
 
+            arrowPath.reset();
+            arrowPath.moveTo(h, horizontalY);
+            arrowPath.lineTo(h - 25, horizontalY - 25);
+            arrowPath.lineTo(h - 25, horizontalY + 25);
+            arrowPath.lineTo(h, horizontalY);
+            canvas.drawPath(arrowPath, arrowPaint);
 
             path.reset();
             path.moveTo(0, -((float) Math.sin(tempFirstX + (tempSecondX - tempFirstX) * ((float) 0 / w)) + 1) * zoomY + tempSecondY * zoomY);
@@ -139,6 +161,11 @@ public class DrawView extends View {
 
                     oldPx = x;
                     oldPy = y;
+                    //fX.setText(String.valueOf(drawView.tempFirstX));
+                    outFX.setText(String.valueOf(tempFirstX));
+                    outFY.setText(String.valueOf(tempFirstY));
+                    outSX.setText(String.valueOf(tempSecondX));
+                    outSY.setText(String.valueOf(tempSecondY));
                 }
                 break;
             }
