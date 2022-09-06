@@ -2,23 +2,23 @@ package com.example.lab4;
 
 import java.util.ArrayList;
 
-public class SnakeGame {
+public class GameSnake {
 
     public static final int DIR_UP = 1;
     public static final int DIR_RIGHT = 2;
     public static final int DIR_DOWN = 3;
     public static final int DIR_LEFT = 4;
 
-    public static int mFieldX = 20;/////
-    public static int mFieldY = 40;/////
+    public static int mFieldX = 8;/////
+    public static int mFieldY = 13;/////
 
-    public int mScore=0;
+    public int mScore = 0;
 
     private int mField[][] = new int[mFieldX][mFieldY];
 
     private ArrayList<pos> mSnake = new ArrayList<pos>();
 
-    int mDirection = SnakeGame.DIR_RIGHT;
+    int mDirection = GameSnake.DIR_RIGHT;
 
     int isGrowing = 0;
 
@@ -32,12 +32,12 @@ public class SnakeGame {
         }
     }
 
-    SnakeGame() {
+    GameSnake() {
         for (int i = 0; i < mFieldX; i++)
             for (int j = 0; j < mFieldY; j++) {
                 mField[i][j] = 0;
             }
-        mSnake.add(new pos(2, 2));
+        mSnake.add(new pos(2, 2)); // Можно создаавать рандомно
         mField[2][2] = -1;
         mSnake.add(new pos(2, 3));
         mField[2][3] = -1;
@@ -202,3 +202,4 @@ public class SnakeGame {
 
 
 }
+

@@ -11,15 +11,21 @@ import android.view.SurfaceView;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 
     private DrawThread drawThread;
+    GameSnake gameSnake;
     GameSurface gameSurface;
-    Paint paint;
+    GameGraphUpdater gameGraphUpdater;
+    public static int GAME_MODE=0;
+    public static int GAME_SCORE=0;
 
     public GameView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         getHolder().addCallback(this);
-        paint = new Paint();
+        gameSnake = new GameSnake();
         gameSurface = new GameSurface(context);
+        gameGraphUpdater = new GameGraphUpdater(gameSurface);
     }
+
+
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -67,15 +73,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
                     canvas = surfaceHolder.lockCanvas(null);
                     if (canvas == null)
                         continue;
-                    //canvas.drawColor(Color.GREEN);
-                    /////////////////////
-//                    canvas.drawBitmap(gameSurface.mBg, 0,0, paint);
-//                    canvas.drawBitmap(gameSurface.mHead, 30,160, paint);
-//                    canvas.drawBitmap(gameSurface.mBody, 30,20, paint);
-//                    canvas.drawBitmap(gameSurface.mTale, 30,10, paint);
-                    gameSurface.drawSnake(canvas);
 
-                    /////////////////////
+                    gameSurface.drawSnake(canvas);
+                    if (gameSnake.nextMove())
+                    {
+                        gameSurface.drawSnake(canvas);
+                    }
+                    gameGraphUpdater.run();
+
+
+
                 } finally {
                     if (canvas != null) {
                         surfaceHolder.unlockCanvasAndPost(canvas);

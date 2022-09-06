@@ -39,6 +39,7 @@
             />
 
         <EditText
+            android:id="@+id/enterNickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -54,6 +55,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/back"
+            />
+
+        <TextView
+            android:id="@+id/yourScore"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:textSize="15sp"
             />
 
     </LinearLayout>
