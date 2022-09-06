@@ -4,23 +4,17 @@ import java.util.ArrayList;
 
 public class GameSnake {
 
+    GameField gameField;
+
     public static final int DIR_UP = 1;
     public static final int DIR_RIGHT = 2;
     public static final int DIR_DOWN = 3;
     public static final int DIR_LEFT = 4;
 
-    public static int mFieldX = 8;/////
-    public static int mFieldY = 13;/////
-
-    public int mScore = 0;
-
-    private int mField[][] = new int[mFieldX][mFieldY];
-
-    private ArrayList<pos> mSnake = new ArrayList<pos>();
-
-    int mDirection = GameSnake.DIR_RIGHT;
-
-    int isGrowing = 0;
+    public int score = 0;
+    public int isGrowing = 0;
+    private ArrayList<pos> snake = new ArrayList<pos>();
+    int direction = GameSnake.DIR_RIGHT;
 
     public class pos {
         int x;
@@ -33,57 +27,56 @@ public class GameSnake {
     }
 
     GameSnake() {
-        for (int i = 0; i < mFieldX; i++)
-            for (int j = 0; j < mFieldY; j++) {
-                mField[i][j] = 0;
-            }
-        mSnake.add(new pos(2, 2)); // Можно создаавать рандомно
-        mField[2][2] = -1;
-        mSnake.add(new pos(2, 3));
-        mField[2][3] = -1;
-        mSnake.add(new pos(2, 4));
-        mField[2][4] = -1;
+        gameField = new GameField();
+        gameField.initMap(1);
+
+        snake.add(new pos(2, 2)); // Можно создвавать рандомно
+        gameField.map[2][2] = gameField.MAP_SNAKE;
+        snake.add(new pos(2, 3));
+        gameField.map[2][3] = gameField.MAP_SNAKE;
+        snake.add(new pos(2, 4));
+        gameField.map[2][4] = gameField.MAP_SNAKE;
         addFruite();
     }
 
     private void addFruite() {
         boolean par = false;
         while (!par) {
-            int x = (int) (Math.random() * mFieldX);
-            int y = (int) (Math.random() * mFieldY);
-            if (mField[x][y] == 0) {
-                mField[x][y] = 2;
+            int x = (int) (Math.random() * gameField.getFieldSizeX());
+            int y = (int) (Math.random() * gameField.getFieldSizeY());
+            if (gameField.map[x][y] == gameField.MAP_SPACE) {
+                gameField.map[x][y] = gameField.MAP_APPLE;
                 par = true;
             }
         }
     }
 
     public boolean nextMove() {
-        switch (this.mDirection) {
+        switch (this.direction) {
             case DIR_UP: {
-                int nextX = mSnake.get(mSnake.size() - 1).x;
-                int nextY = mSnake.get(mSnake.size() - 1).y - 1;
+                int nextX = snake.get(snake.size() - 1).x;
+                int nextY = snake.get(snake.size() - 1).y - 1;
 
-                if ((nextY >= 0) && mField[nextX][nextY] == 0) {
+                if ((nextY >= 0) && gameField.map[nextX][nextY] == gameField.MAP_SPACE) {
                     if (isGrowing > 0) {
                         isGrowing--;
                     } else {
-                        mField[mSnake.get(0).x][mSnake.get(0).y] = 0;
-                        mSnake.remove(0);
+                        gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE;
+                        snake.remove(0);
                     }
-                    mSnake.add(new pos(nextX, nextY));
-                    mField[nextX][nextY] = -1;
+                    snake.add(new pos(nextX, nextY));
+                    gameField.map[nextX][nextY] = gameField.MAP_SNAKE;
                     return true;
 
-                } else if ((nextY >= 0) && mField[nextX][nextY] == 1) {
+                } else if ((nextY >= 0) && gameField.map[nextX][nextY] == gameField.MAP_WALL) {
                     return false;
 
-                } else if ((nextY >= 0) && mField[nextX][nextY] > 1) {
-                    isGrowing = isGrowing + 2;
-                    mScore=mScore+10;
-                    mField[nextX][nextY] = 0;
-                    mSnake.add(new pos(nextX, nextY));
-                    mField[nextX][nextY] = -1;
+                } else if ((nextY >= 0) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
+                    isGrowing += 1;
+                    score += 10;
+                    gameField.map[nextX][nextY] = gameField.MAP_SPACE;
+                    snake.add(new pos(nextX, nextY));
+                    gameField.map[nextX][nextY] = gameField.MAP_SNAKE;
                     addFruite();
                     return true;
                 } else {
@@ -91,26 +84,26 @@ public class GameSnake {
                 }
             }
             case DIR_RIGHT: {
-                int nextX = mSnake.get(mSnake.size() - 1).x + 1;
-                int nextY = mSnake.get(mSnake.size() - 1).y;
-                if ((nextX < mFieldX) && mField[nextX][nextY] == 0) {
+                int nextX = snake.get(snake.size() - 1).x + 1;
+                int nextY = snake.get(snake.size() - 1).y;
+                if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] == gameField.MAP_SPACE) {
                     if (isGrowing > 0) {
                         isGrowing--;
                     } else {
-                        mField[mSnake.get(0).x][mSnake.get(0).y] = 0;
-                        mSnake.remove(0);
+                        gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE;
+                        snake.remove(0);
                     }
-                    mSnake.add(new pos(nextX, nextY));
-                    mField[nextX][nextY] = -1;
+                    snake .add(new pos(nextX, nextY));
+                    gameField.map[nextX][nextY] = -1;
                     return true;
-                } else if ((nextX < mFieldX) && mField[nextX][nextY] == 1) {
+                } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] == gameField.MAP_WALL) {
                     return false;
-                } else if ((nextX < mFieldX) && mField[nextX][nextY] > 1) {
-                    isGrowing = isGrowing + 2;
-                    mScore=mScore+10;
-                    mField[nextX][nextY] = 0;
-                    mSnake.add(new pos(nextX, nextY));
-                    mField[nextX][nextY] = -1;
+                } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
+                    isGrowing = isGrowing + 1;
+                    score += 10;
+                    gameField.map[nextX][nextY] = gameField.MAP_SPACE;
+                    snake.add(new pos(nextX, nextY));
+                    gameField.map[nextX][nextY] = gameField.MAP_SNAKE;
                     addFruite();
                     return true;
                 } else {
@@ -118,26 +111,26 @@ public class GameSnake {
                 }
             }
             case DIR_DOWN: {
-                int nextX = mSnake.get(mSnake.size() - 1).x;
-                int nextY = mSnake.get(mSnake.size() - 1).y + 1;
-                if ((nextX < mFieldX) && mField[nextX][nextY] == 0) {
+                int nextX = snake.get(snake.size() - 1).x;
+                int nextY = snake.get(snake.size() - 1).y + 1;
+                if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] == gameField.MAP_SPACE) {
                     if (isGrowing > 0) {
                         isGrowing--;
                     } else {
-                        mField[mSnake.get(0).x][mSnake.get(0).y] = 0;
-                        mSnake.remove(0);
+                        gameField.map[snake.get(0).x][snake.get(0).y] = 0;
+                        snake.remove(0);
                     }
-                    mSnake.add(new pos(nextX, nextY));
-                    mField[nextX][nextY] = -1;
+                    snake.add(new pos(nextX, nextY));
+                    gameField.map[nextX][nextY] = -1;
                     return true;
-                } else if ((nextX < mFieldX) && mField[nextX][nextY] == 1) {
+                } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] == gameField.MAP_WALL) {
                     return false;
-                } else if ((nextX < mFieldX) && mField[nextX][nextY] > 1) {
-                    isGrowing = isGrowing + 2;
-                    mScore=mScore+10;
-                    mField[nextX][nextY] = 0;
-                    mSnake.add(new pos(nextX, nextY));
-                    mField[nextX][nextY] = -1;
+                } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
+                    isGrowing = isGrowing + 1;
+                    score += 10;
+                    gameField.map[nextX][nextY] = gameField.MAP_SPACE;
+                    snake.add(new pos(nextX, nextY));
+                    gameField.map[nextX][nextY] = gameField.MAP_SNAKE;
                     addFruite();
                     return true;
                 } else {
@@ -145,26 +138,26 @@ public class GameSnake {
                 }
             }
             case DIR_LEFT: {
-                int nextX = mSnake.get(mSnake.size() - 1).x - 1;
-                int nextY = mSnake.get(mSnake.size() - 1).y;
-                if ((nextX >= 0) && mField[nextX][nextY] == 0) {
+                int nextX = snake.get(snake.size() - 1).x - 1;
+                int nextY = snake.get(snake.size() - 1).y;
+                if ((nextX >= 0) && gameField.map[nextX][nextY] == gameField.MAP_SPACE) {
                     if (isGrowing > 0) {
                         isGrowing--;
                     } else {
-                        mField[mSnake.get(0).x][mSnake.get(0).y] = 0;
-                        mSnake.remove(0);
+                        gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE;
+                        snake.remove(0);
                     }
-                    mSnake.add(new pos(nextX, nextY));
-                    mField[nextX][nextY] = -1;
+                    snake.add(new pos(nextX, nextY));
+                    gameField.map[nextX][nextY] = -1;
                     return true;
-                } else if ((nextX >= 0) && mField[nextX][nextY] == 1) {
+                } else if ((nextX >= 0) && gameField.map[nextX][nextY] == gameField.MAP_WALL) {
                     return false;
-                } else if ((nextX >= 0) && mField[nextX][nextY] > 1) {
-                    isGrowing = isGrowing + 2;
-                    mScore=mScore+10;
-                    mField[nextX][nextY] = 0;
-                    mSnake.add(new pos(nextX, nextY));
-                    mField[nextX][nextY] = -1;
+                } else if ((nextX >= 0) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
+                    isGrowing = isGrowing + 1;
+                    score += 10;
+                    gameField.map[nextX][nextY] = gameField.MAP_SPACE;
+                    snake.add(new pos(nextX, nextY));
+                    gameField.map[nextX][nextY] = gameField.MAP_SNAKE;
                     addFruite();
                     return true;
                 } else {
@@ -175,31 +168,28 @@ public class GameSnake {
         return false;
     }
 
+    public GameField getField() {
+        return gameField;
+    }
+
     public int getDirection() {
-        return mDirection;
+        return direction;
     }
 
     public void clearScore(){
-        this.mScore=0;
+        this.score=0;
     }
 
     public void setDirection(int direction) {
-        this.mDirection = direction;
-    }
-
-    public int[][] getmField() {
-        return mField;
+        this.direction = direction;
     }
 
     public int getSnakeLength() {
-        return  mSnake.size();
+        return snake.size();
     }
 
-    public ArrayList<pos> getmSnake() {
-        return mSnake;
+    public ArrayList<pos> getSnake() {
+        return snake;
     }
-
-
 
 }
-

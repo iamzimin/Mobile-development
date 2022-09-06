@@ -11,18 +11,15 @@ import android.view.SurfaceView;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 
     private DrawThread drawThread;
-    GameSnake gameSnake;
-    GameSurface gameSurface;
-    GameGraphUpdater gameGraphUpdater;
-    public static int GAME_MODE=0;
-    public static int GAME_SCORE=0;
+    GameDraw gameDraw;
+    float deltaTime = 0;
+    float timeMove = 0.2f;
+    float timer = 0;
 
     public GameView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         getHolder().addCallback(this);
-        gameSnake = new GameSnake();
-        gameSurface = new GameSurface(context);
-        gameGraphUpdater = new GameGraphUpdater(gameSurface);
+        gameDraw = new GameDraw(context);
     }
 
 
@@ -68,18 +65,25 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
         public void run() {
             Canvas canvas;
             while (running) {
+                long time = System.currentTimeMillis();
                 canvas = null;
                 try {
                     canvas = surfaceHolder.lockCanvas(null);
                     if (canvas == null)
                         continue;
 
-                    gameSurface.drawSnake(canvas);
-                    if (gameSnake.nextMove())
-                    {
-                        gameSurface.drawSnake(canvas);
+                    //gameField = new GameField();
+                    //gameField.initMap(1);
+                    //////////////////////////////////////////
+                    timer += deltaTime;
+
+                    gameDraw.drawMap(canvas);
+                    gameDraw.drawSnake(canvas);
+                    if (timer > timeMove) {
+                        if (!gameDraw.getGameSnake().nextMove())
+
+                        timer = 0;
                     }
-                    gameGraphUpdater.run();
 
 
 
@@ -88,9 +92,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
                         surfaceHolder.unlockCanvasAndPost(canvas);
                     }
                 }
+                deltaTime = (System.currentTimeMillis() - time) / 1000f;
             }
         }
     }
+
+    void setDirection(int direction) {
+        gameDraw.setDirection(direction);
+    }
+
+    public int getDirection() {
+        return gameDraw.getDirection();
+    }
+
 
 }
 
