@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -25,7 +26,13 @@ public class GameActivity extends AppCompatActivity {
 
     Button up, down, left, right;
     GameView outputGame;
-    //GameSnake gameSnake;
+    Matrix matrix;
+    TextView outputScore;
+    int level;
+
+    int pX, pY;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +44,27 @@ public class GameActivity extends AppCompatActivity {
         left = findViewById(R.id.buttonLeft);
         right = findViewById(R.id.buttonRight);
         outputGame = findViewById(R.id.outputGame);
-        //gameSnake = new GameSnake();
+        outputScore = findViewById(R.id.score);
+
+        matrix = new Matrix();
 
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //if (outputGame.getDirection() != GameSnake.DIR_DOWN)
+                if (outputGame.getDirection() != GameSnake.DIR_DOWN)
                     outputGame.setDirection(GameSnake.DIR_UP);
+
+//                if (outputGame.getDirection() == GameSnake.DIR_RIGHT) {
+//                    pX = outputGame.getSnakePosX();
+//                    pY = outputGame.getSnakePosY();
+//                    matrix.postRotate(-90);
+//                    outputGame.setMatrix(matrix);
+//                }
+//                else if (outputGame.getDirection() == GameSnake.DIR_LEFT) {
+//                    matrix.postRotate(-90);
+//                    outputGame.setMatrix(matrix);
+//                }
             }
         });
 
@@ -52,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //if (outputGame.getDirection() != GameSnake.DIR_UP)
+                if (outputGame.getDirection() != GameSnake.DIR_UP)
                     outputGame.setDirection(GameSnake.DIR_DOWN);
             }
         });
@@ -61,7 +81,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-               //if (outputGame.getDirection() != GameSnake.DIR_RIGHT)
+               if (outputGame.getDirection() != GameSnake.DIR_RIGHT)
                     outputGame.setDirection(GameSnake.DIR_LEFT);
             }
         });
@@ -70,11 +90,43 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //if (outputGame.getDirection() != GameSnake.DIR_LEFT)
+                if (outputGame.getDirection() != GameSnake.DIR_LEFT)
                     outputGame.setDirection(GameSnake.DIR_RIGHT);
             }
         });
 
+        outputGame.CreateCallBack(new ScoreCallBack() {
+            @Override
+            public void onChange(int score) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        outputScore.setText("Ваш счёт: " + score);
+                        if (score >= 20 && outputGame.getCurrentLevel() == 1) {
+                            level++;
+                            outputGame.setCurrentLevel(level);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+//    public int getpX() {
+//        return pX;
+//    }
+//
+//    public int getpY() {
+//        return pY;
+//    }
+
+
+    public int getScore() {
+        return outputGame.getScore();
+    }
+
+    public void setScore(int score) {
+        outputGame.setScore(score);
     }
 
 

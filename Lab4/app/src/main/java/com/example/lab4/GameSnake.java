@@ -11,24 +11,43 @@ public class GameSnake {
     public static final int DIR_DOWN = 3;
     public static final int DIR_LEFT = 4;
 
+    int currentLevel = 1;
+
+//    public boolean isHead = false;
+//    public boolean isBody = false;
+//
+//    public boolean isTail = false;
+
+    ScoreCallBack s;
+
     public int score = 0;
     public int isGrowing = 0;
     private ArrayList<pos> snake = new ArrayList<pos>();
     int direction = GameSnake.DIR_RIGHT;
 
     public class pos {
-        int x;
-        int y;
+
+        private int x;
+        private int y;
 
         pos(int x, int y) {
             this.x = x;
             this.y = y;
         }
+
+        public int getSnakePosX() {
+            return x;
+        }
+
+        public int getSnakePosY() {
+            return y;
+        }
     }
+
 
     GameSnake() {
         gameField = new GameField();
-        gameField.initMap(1);
+        gameField.initMap(currentLevel);
 
         snake.add(new pos(2, 2)); // Можно создвавать рандомно
         gameField.map[2][2] = gameField.MAP_SNAKE;
@@ -61,8 +80,9 @@ public class GameSnake {
                     if (isGrowing > 0) {
                         isGrowing--;
                     } else {
-                        gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE;
+                        gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE; //////// хвост
                         snake.remove(0);
+                        //isTail = true;
                     }
                     snake.add(new pos(nextX, nextY));
                     gameField.map[nextX][nextY] = gameField.MAP_SNAKE;
@@ -74,6 +94,9 @@ public class GameSnake {
                 } else if ((nextY >= 0) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
                     isGrowing += 1;
                     score += 10;
+                    s.onChange(score);
+                    gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE; //////// хвост
+                    snake.remove(0);
                     gameField.map[nextX][nextY] = gameField.MAP_SPACE;
                     snake.add(new pos(nextX, nextY));
                     gameField.map[nextX][nextY] = gameField.MAP_SNAKE;
@@ -92,8 +115,9 @@ public class GameSnake {
                     } else {
                         gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE;
                         snake.remove(0);
+                        //isTail = true;
                     }
-                    snake .add(new pos(nextX, nextY));
+                    snake.add(new pos(nextX, nextY));
                     gameField.map[nextX][nextY] = -1;
                     return true;
                 } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] == gameField.MAP_WALL) {
@@ -101,6 +125,9 @@ public class GameSnake {
                 } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
                     isGrowing = isGrowing + 1;
                     score += 10;
+                    s.onChange(score);
+                    gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE; //////// хвост
+                    snake.remove(0);
                     gameField.map[nextX][nextY] = gameField.MAP_SPACE;
                     snake.add(new pos(nextX, nextY));
                     gameField.map[nextX][nextY] = gameField.MAP_SNAKE;
@@ -119,6 +146,7 @@ public class GameSnake {
                     } else {
                         gameField.map[snake.get(0).x][snake.get(0).y] = 0;
                         snake.remove(0);
+                        //isTail = true;
                     }
                     snake.add(new pos(nextX, nextY));
                     gameField.map[nextX][nextY] = -1;
@@ -128,6 +156,9 @@ public class GameSnake {
                 } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
                     isGrowing = isGrowing + 1;
                     score += 10;
+                    s.onChange(score);
+                    gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE; //////// хвост
+                    snake.remove(0);
                     gameField.map[nextX][nextY] = gameField.MAP_SPACE;
                     snake.add(new pos(nextX, nextY));
                     gameField.map[nextX][nextY] = gameField.MAP_SNAKE;
@@ -146,6 +177,7 @@ public class GameSnake {
                     } else {
                         gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE;
                         snake.remove(0);
+                        //isTail = true;
                     }
                     snake.add(new pos(nextX, nextY));
                     gameField.map[nextX][nextY] = -1;
@@ -155,6 +187,9 @@ public class GameSnake {
                 } else if ((nextX >= 0) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
                     isGrowing = isGrowing + 1;
                     score += 10;
+                    s.onChange(score);
+                    gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE; //////// хвост
+                    snake.remove(0);
                     gameField.map[nextX][nextY] = gameField.MAP_SPACE;
                     snake.add(new pos(nextX, nextY));
                     gameField.map[nextX][nextY] = gameField.MAP_SNAKE;
@@ -176,9 +211,10 @@ public class GameSnake {
         return direction;
     }
 
-    public void clearScore(){
-        this.score=0;
+    void CreateCallBack(ScoreCallBack cb) {
+        s = cb;
     }
+
 
     public void setDirection(int direction) {
         this.direction = direction;
@@ -191,5 +227,48 @@ public class GameSnake {
     public ArrayList<pos> getSnake() {
         return snake;
     }
+
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+
+//    public void setIsHead(boolean head) {
+//        isHead = head;
+//    }
+//
+//    public void setIsBody(boolean body) {
+//        isBody = body;
+//    }
+//
+//    public void setIsTail(boolean tail) {
+//        isTail = tail;
+//    }
+//
+//
+//    public boolean getIsHead() {
+//        return isHead;
+//    }
+//
+//    public boolean getIsBody() {
+//        return isBody;
+//    }
+//
+//    public boolean getIsTail() {
+//        return isTail;
+//    }
 
 }

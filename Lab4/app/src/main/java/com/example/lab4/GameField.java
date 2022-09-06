@@ -26,6 +26,20 @@ public class GameField {
 
                 }
         }
+        if (levelNumber == 2) {
+            for (int i = 0; i < fieldSizeX; i++)
+                for (int j = 0; j < fieldSizeY; j++) {
+
+                    if (i == 0 || i == fieldSizeX - 1)
+                        map[i][j] = MAP_WALL;
+                    else if (j == 0 || j == fieldSizeY - 1)
+                        map[i][j] = MAP_WALL;
+                    else
+                        map[i][j] = MAP_SPACE;
+                    map[6][6] = MAP_WALL;
+                }
+
+        }
     }
 
     public int getFieldSizeX() {

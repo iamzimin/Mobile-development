@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.view.SurfaceView;
 
@@ -11,6 +12,7 @@ public class GameDraw extends SurfaceView {
 
     GameField gameField;
     GameSnake gameSnake;
+    Matrix matrix;
 
     public Bitmap mHead, mTale, mBody, mBg, mFruite, mRock;
 
@@ -18,10 +20,11 @@ public class GameDraw extends SurfaceView {
         super(context);
         gameSnake = new GameSnake();
         gameField = gameSnake.getField();
-        //gameField.initMap(1);
-        mHead =     BitmapFactory.decodeResource(context.getResources(), R.drawable.head);
+        matrix = new Matrix();
+
+        mHead =     BitmapFactory.decodeResource(context.getResources(), R.drawable.tale);
         mBody =     BitmapFactory.decodeResource(context.getResources(), R.drawable.body);
-        mTale =     BitmapFactory.decodeResource(context.getResources(), R.drawable.tale);
+        mTale =     BitmapFactory.decodeResource(context.getResources(), R.drawable.head);
         mBg =       BitmapFactory.decodeResource(context.getResources(), R.drawable.bg);
         mFruite =   BitmapFactory.decodeResource(context.getResources(), R.drawable.fruite);
         mRock =     BitmapFactory.decodeResource(context.getResources(), R.drawable.rock);
@@ -63,19 +66,27 @@ public class GameDraw extends SurfaceView {
         Bitmap head = Bitmap.createScaledBitmap(mHead, mx, my, true);
         Bitmap body = Bitmap.createScaledBitmap(mBody, mx, my, true);
         Bitmap tale = Bitmap.createScaledBitmap(mTale, mx, my, true);
+//        if (gameSnake.getIsTail()) {
+//            matrix.postRotate(0);
+//            tale = Bitmap.createBitmap(mTale, 0, 0, mx, my, matrix, true);
+//
+//            gameSnake.setIsTail(false);
+//        } else {
+//            tale = Bitmap.createScaledBitmap(mTale, mx, my, true);
+//        }
+
+        matrix = getMatrix();
 
         Paint paint = new Paint();
-
         paint.setAlpha(0);
         for (int i = 0; i < gameSnake.getSnakeLength(); i++) {
             if (i == 0)
-                c.drawBitmap(head, gameSnake.getSnake().get(i).x * mx,  gameSnake.getSnake().get(i).y * my, new Paint());
+                c.drawBitmap(head, gameSnake.getSnake().get(i).getSnakePosX() * mx,  gameSnake.getSnake().get(i).getSnakePosY() * my, new Paint());
             else
-                c.drawBitmap(body,  gameSnake.getSnake().get(i).x * mx,  gameSnake.getSnake().get(i).y * my, new Paint());
+                c.drawBitmap(body,  gameSnake.getSnake().get(i).getSnakePosX() * mx,  gameSnake.getSnake().get(i).getSnakePosY() * my, new Paint());
 
             if (i == gameSnake.getSnakeLength() - 1)
-                c.drawBitmap(tale,  gameSnake.getSnake().get(i).x * mx,  gameSnake.getSnake().get(i).y * my, new Paint());
-
+                c.drawBitmap(tale, gameSnake.getSnake().get(i).getSnakePosX() * mx, gameSnake.getSnake().get(i).getSnakePosY() * my, new Paint());
 
         }
     }
@@ -92,5 +103,41 @@ public class GameDraw extends SurfaceView {
         return gameSnake.direction;
     }
 
+
+    public int getScore() {
+        return gameSnake.getScore();
+    }
+
+    public void setScore(int score) {
+        gameSnake.setScore(score);
+    }
+
+    void CreateCallBack(ScoreCallBack cb) {
+        gameSnake.CreateCallBack(cb);
+    }
+
+    public int getCurrentLevel() {
+        return gameSnake.currentLevel;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        gameSnake.setCurrentLevel(currentLevel);
+    }
+
+//    public Matrix getMatrix() {
+//        return matrix;
+//    }
+//
+//    public void setMatrix(Matrix matrix) {
+//        this.matrix = matrix;
+//    }
+//
+//    public int getSnakePosX() {
+//        return getSnakePosX();
+//    }
+//
+//    public int getSnakePosY() {
+//        return getSnakePosY();
+//    }
 
 }
