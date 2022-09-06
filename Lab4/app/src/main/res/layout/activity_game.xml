@@ -15,7 +15,7 @@
         <com.example.lab4.GameView
             android:id="@+id/outputGame"
             android:layout_width="match_parent"
-            android:layout_height="606dp"
+            android:layout_height="500dp"
             android:gravity="center"
             android:text="@string/gameName"
             android:textColor="@color/black"
@@ -36,7 +36,7 @@
             android:id="@+id/level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Уровень номер"
+            android:text="уровень"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:layout_alignParentEnd="true"/>

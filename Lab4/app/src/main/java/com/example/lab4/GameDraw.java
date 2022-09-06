@@ -10,17 +10,14 @@ import android.view.SurfaceView;
 
 public class GameDraw extends SurfaceView {
 
-    GameField gameField;
     GameSnake gameSnake;
-    Matrix matrix;
+
 
     public Bitmap mHead, mTale, mBody, mBg, mFruite, mRock;
 
     public GameDraw(Context context) {
         super(context);
         gameSnake = new GameSnake();
-        gameField = gameSnake.getField();
-        matrix = new Matrix();
 
         mHead =     BitmapFactory.decodeResource(context.getResources(), R.drawable.tale);
         mBody =     BitmapFactory.decodeResource(context.getResources(), R.drawable.body);
@@ -35,8 +32,8 @@ public class GameDraw extends SurfaceView {
 
         int width = c.getWidth();
         int height = c.getHeight();
-        int mx = width / gameField.getFieldSizeX();
-        int my = height / gameField.getFieldSizeY();
+        int mx = width / gameSnake.getFieldSizeX();
+        int my = height / gameSnake.getFieldSizeY();
 
         Bitmap bg = Bitmap.createScaledBitmap(mBg, mx, my, true);
         Bitmap fruite = Bitmap.createScaledBitmap(mFruite, mx, my, true);
@@ -44,13 +41,13 @@ public class GameDraw extends SurfaceView {
 
         Paint paint = new Paint();
 
-        for (int i = 0; i < gameField.getFieldSizeX(); i++) {
-            for (int j = 0; j < gameField.getFieldSizeY(); j++) {
+        for (int i = 0; i < gameSnake.getFieldSizeY(); i++) {
+            for (int j = 0; j < gameSnake.getFieldSizeX(); j++) {
                 c.drawBitmap(bg, mx * i, my * j, paint);
-                if (gameField.getMap()[i][j] == gameField.MAP_WALL) {
+                if (gameSnake.getMap()[i][j] == gameSnake.gameField.MAP_WALL) {
                     c.drawBitmap(rock, mx * i, my * j, paint);
                 }
-                else if (gameField.getMap()[i][j] >= gameField.MAP_APPLE) {
+                else if (gameSnake.getMap()[i][j] >= gameSnake.gameField.MAP_WALL) {
                     c.drawBitmap(fruite, mx * i, my * j, paint);
                 }
             }
@@ -61,8 +58,8 @@ public class GameDraw extends SurfaceView {
     public void drawSnake(Canvas c) {
         int width = c.getWidth();
         int height = c.getHeight();
-        int mx = width / gameField.getFieldSizeX();
-        int my = height / gameField.getFieldSizeY();
+        int mx = width / gameSnake.getFieldSizeX();
+        int my = height / gameSnake.getFieldSizeY();
         Bitmap head = Bitmap.createScaledBitmap(mHead, mx, my, true);
         Bitmap body = Bitmap.createScaledBitmap(mBody, mx, my, true);
         Bitmap tale = Bitmap.createScaledBitmap(mTale, mx, my, true);
@@ -75,7 +72,7 @@ public class GameDraw extends SurfaceView {
 //            tale = Bitmap.createScaledBitmap(mTale, mx, my, true);
 //        }
 
-        matrix = getMatrix();
+        //matrix = getMatrix();
 
         Paint paint = new Paint();
         paint.setAlpha(0);
@@ -116,12 +113,19 @@ public class GameDraw extends SurfaceView {
         gameSnake.CreateCallBack(cb);
     }
 
+
+
     public int getCurrentLevel() {
         return gameSnake.currentLevel;
     }
 
     public void setCurrentLevel(int currentLevel) {
         gameSnake.setCurrentLevel(currentLevel);
+    }
+
+
+    public void GameSnakeLevels() {
+        gameSnake.GameSnakeLevels();
     }
 
 //    public Matrix getMatrix() {

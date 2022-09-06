@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 
@@ -16,6 +17,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
     float deltaTime = 0;
     float timeMove = 0.5f;
     float timer = 0;
+
+
+
+    int GAME_MODE = 0;
 
     public GameView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -71,17 +76,32 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
                     if (canvas == null)
                         continue;
 
-                    //gameField = new GameField();
-                    //gameField.initMap(1);
-                    //////////////////////////////////////////
-                    timer += deltaTime;
-                    if (gameDraw.getCurrentLevel() == 1)
+                    if (GAME_MODE == 0) {
+                        //gameField = new GameField();
+                        //gameField.initMap(1);
+                        //////////////////////////////////////////
+                        timer += deltaTime;
+                        //if (gameDraw.getCurrentLevel() == 1) {
 
-                    gameDraw.drawMap(canvas);
-                    gameDraw.drawSnake(canvas);
-                    if (timer > timeMove) {
-                        gameDraw.getGameSnake().nextMove();
-                        timer = 0;
+                            gameDraw.drawMap(canvas);
+                            gameDraw.drawSnake(canvas);
+                            if (timer > timeMove) {
+                                if (gameDraw.getGameSnake().nextMove() == false)
+                                    GAME_MODE = 1;
+                                timer = 0;
+                            }
+                        //}
+//                        else if (gameDraw.getCurrentLevel() == 2) {
+//                            gameDraw.invalidate();
+//                            gameDraw.drawMap(canvas);
+//                            gameDraw.drawSnake(canvas);
+//                            if (timer > timeMove) {
+//                                if (gameDraw.getGameSnake().nextMove() == false)
+//                                    GAME_MODE = 1;
+//                                timer = 0;
+//                            }
+//                        }
+
                     }
 
 
@@ -121,12 +141,27 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
         gameDraw.CreateCallBack(cb);
     }
 
+//    void CreateCallBackLevel(NewLevelCallBack newLevelCallBack) {
+//        ((GameActivity)getContext()).CreateCallBackLevel(newLevelCallBack);
+//    }
+//    void CreateCallBackLevel(NewLevelCallBack newLevelCallBack) {
+//        (gameDraw.gameSnake).CreateCallBackLevel(newLevelCallBack);
+//    }
+
     public int getCurrentLevel() {
         return gameDraw.gameSnake.currentLevel;
     }
 
     public void setCurrentLevel(int currentLevel) {
-        gameDraw.gameSnake.setCurrentLevel(currentLevel);
+        gameDraw.setCurrentLevel(currentLevel);
+    }
+
+    public int getGAME_MODE() {
+        return GAME_MODE;
+    }
+
+    public void GameSnakeLevels() {
+        gameDraw.GameSnakeLevels();
     }
 
 //    public Matrix getMatrix() {

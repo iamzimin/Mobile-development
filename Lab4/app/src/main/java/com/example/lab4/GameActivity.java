@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextClock;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Timer;
 
@@ -27,12 +28,10 @@ public class GameActivity extends AppCompatActivity {
     Button up, down, left, right;
     GameView outputGame;
     Matrix matrix;
-    TextView outputScore;
-    int level;
+    TextView outputScore, outputLevel;
+    int level = 1;
 
-    int pX, pY;
-
-
+    NewLevelCallBack newLevelCallBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,8 @@ public class GameActivity extends AppCompatActivity {
         right = findViewById(R.id.buttonRight);
         outputGame = findViewById(R.id.outputGame);
         outputScore = findViewById(R.id.score);
+        outputLevel = findViewById(R.id.level);
+        outputLevel.setText(level + " уровень");
 
         matrix = new Matrix();
 
@@ -102,15 +103,37 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         outputScore.setText("Ваш счёт: " + score);
-                        if (score >= 20 && outputGame.getCurrentLevel() == 1) {
-                            level++;
+                        //outputScore.setText("Ваш счёт: " + score);
+                        if (score >= 50 && outputGame.getCurrentLevel() == 3) {
+                            outputLevel.setText(level + " уровень");
                             outputGame.setCurrentLevel(level);
                         }
+                        else if (score >= 30 && outputGame.getCurrentLevel() == 2) {
+                            level++;
+                            outputLevel.setText(level + " уровень");
+                            outputGame.setCurrentLevel(level);
+                            outputGame.invalidate();
+                            outputGame.GameSnakeLevels();
+                        }
+                        else if (score >= 10 && outputGame.getCurrentLevel() == 1) {
+                            level++;
+                            outputLevel.setText(level + " уровень");
+                            outputGame.setCurrentLevel(level);
+                            outputGame.invalidate();
+                            outputGame.GameSnakeLevels();
+                        }
+
+                        if (outputGame.getGAME_MODE() == 1) {
+                            Toast.makeText(getApplicationContext(), "Вы проиграли и набрали " + score + " очков", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+
                     }
                 });
             }
         });
     }
+
 
 //    public int getpX() {
 //        return pX;
@@ -119,8 +142,7 @@ public class GameActivity extends AppCompatActivity {
 //    public int getpY() {
 //        return pY;
 //    }
-
-
+//
     public int getScore() {
         return outputGame.getScore();
     }

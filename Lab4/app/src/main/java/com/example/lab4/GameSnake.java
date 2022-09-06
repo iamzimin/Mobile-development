@@ -2,7 +2,7 @@ package com.example.lab4;
 
 import java.util.ArrayList;
 
-public class GameSnake {
+public class GameSnake implements NewLevelCallBack{
 
     GameField gameField;
 
@@ -10,6 +10,7 @@ public class GameSnake {
     public static final int DIR_RIGHT = 2;
     public static final int DIR_DOWN = 3;
     public static final int DIR_LEFT = 4;
+    int direction;
 
     int currentLevel = 1;
 
@@ -18,12 +19,17 @@ public class GameSnake {
 //
 //    public boolean isTail = false;
 
-    ScoreCallBack s;
+    ScoreCallBack scoreCallBack;
+
 
     public int score = 0;
     public int isGrowing = 0;
     private ArrayList<pos> snake = new ArrayList<pos>();
-    int direction = GameSnake.DIR_RIGHT;
+
+    @Override
+    public void onChange(int level) {
+
+    }
 
     public class pos {
 
@@ -46,8 +52,17 @@ public class GameSnake {
 
 
     GameSnake() {
+        GameSnakeLevels();
+    }
+
+    public void GameSnakeLevels() {
         gameField = new GameField();
+        direction = GameSnake.DIR_RIGHT;
         gameField.initMap(currentLevel);
+
+        while (snake.size() != 0)
+            snake.remove(0);
+
 
         snake.add(new pos(2, 2)); // Можно создвавать рандомно
         gameField.map[2][2] = gameField.MAP_SNAKE;
@@ -89,12 +104,13 @@ public class GameSnake {
                     return true;
 
                 } else if ((nextY >= 0) && gameField.map[nextX][nextY] == gameField.MAP_WALL) {
+                    scoreCallBack.onChange(score);
                     return false;
 
                 } else if ((nextY >= 0) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
                     isGrowing += 1;
                     score += 10;
-                    s.onChange(score);
+                    scoreCallBack.onChange(score);
                     gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE; //////// хвост
                     snake.remove(0);
                     gameField.map[nextX][nextY] = gameField.MAP_SPACE;
@@ -103,6 +119,7 @@ public class GameSnake {
                     addFruite();
                     return true;
                 } else {
+                    scoreCallBack.onChange(score);
                     return false;
                 }
             }
@@ -121,11 +138,12 @@ public class GameSnake {
                     gameField.map[nextX][nextY] = -1;
                     return true;
                 } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] == gameField.MAP_WALL) {
+                    scoreCallBack.onChange(score);
                     return false;
                 } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
                     isGrowing = isGrowing + 1;
                     score += 10;
-                    s.onChange(score);
+                    scoreCallBack.onChange(score);
                     gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE; //////// хвост
                     snake.remove(0);
                     gameField.map[nextX][nextY] = gameField.MAP_SPACE;
@@ -134,6 +152,7 @@ public class GameSnake {
                     addFruite();
                     return true;
                 } else {
+                    scoreCallBack.onChange(score);
                     return false;
                 }
             }
@@ -152,11 +171,12 @@ public class GameSnake {
                     gameField.map[nextX][nextY] = -1;
                     return true;
                 } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] == gameField.MAP_WALL) {
+                    scoreCallBack.onChange(score);
                     return false;
                 } else if ((nextX < gameField.getFieldSizeX()) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
                     isGrowing = isGrowing + 1;
                     score += 10;
-                    s.onChange(score);
+                    scoreCallBack.onChange(score);
                     gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE; //////// хвост
                     snake.remove(0);
                     gameField.map[nextX][nextY] = gameField.MAP_SPACE;
@@ -165,6 +185,7 @@ public class GameSnake {
                     addFruite();
                     return true;
                 } else {
+                    scoreCallBack.onChange(score);
                     return false;
                 }
             }
@@ -183,11 +204,12 @@ public class GameSnake {
                     gameField.map[nextX][nextY] = -1;
                     return true;
                 } else if ((nextX >= 0) && gameField.map[nextX][nextY] == gameField.MAP_WALL) {
+                    scoreCallBack.onChange(score);
                     return false;
                 } else if ((nextX >= 0) && gameField.map[nextX][nextY] >= gameField.MAP_APPLE) {
                     isGrowing = isGrowing + 1;
                     score += 10;
-                    s.onChange(score);
+                    scoreCallBack.onChange(score);
                     gameField.map[snake.get(0).x][snake.get(0).y] = gameField.MAP_SPACE; //////// хвост
                     snake.remove(0);
                     gameField.map[nextX][nextY] = gameField.MAP_SPACE;
@@ -196,6 +218,7 @@ public class GameSnake {
                     addFruite();
                     return true;
                 } else {
+                    scoreCallBack.onChange(score);
                     return false;
                 }
             }
@@ -212,7 +235,7 @@ public class GameSnake {
     }
 
     void CreateCallBack(ScoreCallBack cb) {
-        s = cb;
+        scoreCallBack = cb;
     }
 
 
@@ -243,6 +266,18 @@ public class GameSnake {
 
     public void setCurrentLevel(int currentLevel) {
         this.currentLevel = currentLevel;
+    }
+
+    public int getFieldSizeX() {
+        return gameField.getFieldSizeX();
+    }
+
+    public int getFieldSizeY() {
+        return gameField.getFieldSizeX();
+    }
+
+    public int[][] getMap() {
+        return gameField.getMap();
     }
 
 
