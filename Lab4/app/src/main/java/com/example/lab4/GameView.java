@@ -164,6 +164,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
         gameDraw.GameSnakeLevels();
     }
 
+    public void setTimeMove(float timeMove) {
+        this.timeMove = timeMove;
+    }
+
 //    public Matrix getMatrix() {
 //        return gameDraw.matrix;
 //    }

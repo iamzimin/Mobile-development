@@ -104,26 +104,37 @@ public class GameActivity extends AppCompatActivity {
                     public void run() {
                         outputScore.setText("Ваш счёт: " + score);
                         //outputScore.setText("Ваш счёт: " + score);
-                        if (score >= 50 && outputGame.getCurrentLevel() == 3) {
-                            outputLevel.setText(level + " уровень");
-                            outputGame.setCurrentLevel(level);
+                        if (score >= 30 && outputGame.getCurrentLevel() == 3) {
+                            if (outputGame.getGAME_MODE() == 1) {
+                                Toast.makeText(getApplicationContext(), "Вы проиграли и набрали " + score + " очков", Toast.LENGTH_LONG).show();
+                                finish();
+                            }
                         }
-                        else if (score >= 30 && outputGame.getCurrentLevel() == 2) {
+                        else if (score >= 20 && outputGame.getCurrentLevel() == 2) {
+                            if (outputGame.getGAME_MODE() == 1) {
+                                Toast.makeText(getApplicationContext(), "Вы проиграли и набрали " + score + " очков", Toast.LENGTH_LONG).show();
+                                finish();
+                            }
                             level++;
+                            outputGame.setTimeMove(0.1f);
                             outputLevel.setText(level + " уровень");
                             outputGame.setCurrentLevel(level);
                             outputGame.invalidate();
                             outputGame.GameSnakeLevels();
                         }
                         else if (score >= 10 && outputGame.getCurrentLevel() == 1) {
+                            if (outputGame.getGAME_MODE() == 1) {
+                                Toast.makeText(getApplicationContext(), "Вы проиграли и набрали " + score + " очков", Toast.LENGTH_LONG).show();
+                                finish();
+                            }
                             level++;
+                            outputGame.setTimeMove(0.3f);
                             outputLevel.setText(level + " уровень");
                             outputGame.setCurrentLevel(level);
                             outputGame.invalidate();
                             outputGame.GameSnakeLevels();
                         }
-
-                        if (outputGame.getGAME_MODE() == 1) {
+                        else if (outputGame.getGAME_MODE() == 1) {
                             Toast.makeText(getApplicationContext(), "Вы проиграли и набрали " + score + " очков", Toast.LENGTH_LONG).show();
                             finish();
                         }
@@ -150,6 +161,5 @@ public class GameActivity extends AppCompatActivity {
     public void setScore(int score) {
         outputGame.setScore(score);
     }
-
 
 }
