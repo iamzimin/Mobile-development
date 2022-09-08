@@ -8,7 +8,7 @@ public class MyConstants {
     public static final String DELTA_TIME = "delta_time";
     public static final String SCORE = "score";
     public static final String DB_NAME = "lab5.db";
-    public static final int DB_VERSION = 5;
+    public static final int DB_VERSION = 7;
 
     public static final String TABLE_STRUCTURE = "CREATE TABLE IF NOT EXISTS " +
             TABLE_NAME + " (" + _ID + " INTEGER PRIMARY KEY," + NICKNAME + " TEXT," +

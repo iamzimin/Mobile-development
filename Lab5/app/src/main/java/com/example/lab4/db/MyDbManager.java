@@ -41,7 +41,7 @@ public class MyDbManager {
                 null, null, null, orderBy);
 
         if (orderBy != null) {
-            if (cursor != null && cursor.moveToFirst()) {
+            if (cursor != null) {
                 while (cursor.moveToNext()) {
                     @SuppressLint("Range") String nickname = cursor.getString(cursor.getColumnIndex(MyConstants.NICKNAME));
                     @SuppressLint("Range") int score = cursor.getInt(cursor.getColumnIndex(MyConstants.SCORE));
@@ -53,7 +53,7 @@ public class MyDbManager {
             }
         }
         else {
-            if (cursor != null && cursor.moveToFirst()) {
+            if (cursor != null) {
                 while (cursor.moveToNext()) {
                     @SuppressLint("Range") String nickname = cursor.getString(cursor.getColumnIndex(MyConstants.NICKNAME));
                     @SuppressLint("Range") int score = cursor.getInt(cursor.getColumnIndex(MyConstants.SCORE));

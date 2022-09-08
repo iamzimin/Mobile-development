@@ -54,7 +54,6 @@ public class ListPlayersActivity extends AppCompatActivity {
                 for (RowModel rowModel : myDbManager.getFromDb(null)) {
                     textView.append(rowModel.getNickname());
                     textView.append(" ");
-                    textView.append(" ");
                     textView.append(String.valueOf(rowModel.getScore()));
                     textView.append(" ");
                     textView.append(rowModel.getTime());
