@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">№4</string>
+    <string name="gameName">Игра Змейка</string>
+    <string name="play">Играть</string>
+    <string name="playersList">Список игроков</string>
+    <string name="exit">Выход</string>
+    <string name="sumbit">Подтвердить</string>
+    <string name="back">Назад</string>
+    <string name="toastNickname">Введите свой ник</string>
+</resources>
