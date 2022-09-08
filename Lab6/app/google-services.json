@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "269288081140",
+    "firebase_url": "https://lab6-bb05c-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "lab6-bb05c",
+    "storage_bucket": "lab6-bb05c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269288081140:android:09119f5ab4a2a0358340a1",
+        "android_client_info": {
+          "package_name": "com.example.lab4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269288081140-ndscqb78p9v9seddtq0cq3b68hkt4bic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsAbFLZsi5bVZqBRJZGwvd4C7mFb50XUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269288081140-ndscqb78p9v9seddtq0cq3b68hkt4bic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
