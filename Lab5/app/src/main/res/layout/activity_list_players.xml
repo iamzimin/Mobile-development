@@ -15,29 +15,26 @@
         android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="@string/playersList"
-        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
 
         android:id="@+id/outputStats"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_width="341dp"
+        android:layout_height="473dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="30sp"
         android:textSize="15sp"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.237">
+        app:layout_constraintVertical_bias="0.289">
 
     </TextView>
 
@@ -49,17 +46,18 @@
         android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toEndOf="@+id/upload" />
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/upload"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginStart="48dp"
         android:layout_marginBottom="36dp"
         android:text="Загрузить"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -70,8 +68,8 @@
         android:text="Самый длинный сеанс"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/higherScore"
-        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -83,7 +81,7 @@
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintHorizontal_bias="0.885"
         app:layout_constraintStart_toStartOf="parent" />
 
 
