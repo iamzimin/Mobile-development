@@ -62,7 +62,7 @@ public class ListPlayersActivity extends AppCompatActivity implements UpdateList
             @Override
             public void onClick(View view) {
 
-                myDbManager.getDataFromDb(2);;
+                myDbManager.getDataFromDb(3);;
 
             }
         });
@@ -72,7 +72,7 @@ public class ListPlayersActivity extends AppCompatActivity implements UpdateList
             @Override
             public void onClick(View view) {
 
-                myDbManager.getDataFromDb(3);
+                myDbManager.getDataFromDb(2);
 
             }
         });
